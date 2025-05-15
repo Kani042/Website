@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sweet Home Daycare</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3659/3659894.png" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-yellow-100 via-pink-100 to-blue-100 font-sans text-gray-800">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/3659/3659894.png" class="w-10 h-10" alt="Logo" />
+        <span class="text-xl font-bold text-pink-600">Sweet Home Daycare</span>
+      </div>
+      <nav class="space-x-6 hidden md:block text-sm font-medium text-gray-700">
+        <a href="#home" class="hover:text-pink-500">Home</a>
+        <a href="#about" class="hover:text-pink-500">About</a>
+        <a href="#programs" class="hover:text-pink-500">Programs</a>
+        <a href="#gallery" class="hover:text-pink-500">Gallery</a>
+        <a href="#contact" class="hover:text-pink-500">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Carousel -->
+  <section id = "home" x-data="{
+      images: [
+        { src: 'assests/images/aadhidaycare1.jpg', heading: 'Learning Through Play' },
+        { src: 'assests/images/aadhidaycare3.jpg', heading: 'Caring Like Family' },
+        { src: 'assests/images/aadhidaycare2.jpg', heading: 'Growing Together Every Day' },
+	{ src: 'assests/images/aadhidaycare4.jpg', heading: 'Learning To Grow' }
+      ],
+      currentIndex: 0,
+      init() {
+        setInterval(() => {
+          this.currentIndex = (this.currentIndex + 1) % this.images.length;
+        }, 4000);
+      }
+    }" class="relative w-full h-[500px] overflow-hidden rounded-3xl"
+    >
+    <!-- Carousel Images with Transition -->
+    <template x-for="(image, index) in images" :key="index">
+      <div
+        x-show="currentIndex === index"
+        class="absolute inset-0 transition-opacity duration-1000"
+        x-transition:enter="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="opacity-100"
+        x-transition:leave-end="opacity-0"
+      >
+        <img :src="image.src" alt="" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+          <h2 class="text-3xl md:text-5xl text-white font-bold text-center px-4" x-text="image.heading"></h2>
+        </div>
+      </div>
+    </template>
+
+    <!-- Carousel Navigation Arrows -->
+    <button @click="currentIndex = (currentIndex - 1 + images.length) % images.length" class="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full">
+      &#60;
+    </button>
+    <button @click="currentIndex = (currentIndex + 1) % images.length" class="absolute top-1/2 right-4 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full">
+      &#62;
+    </button>
+
+    <!-- Carousel Dots -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <template x-for="(image, index) in images" :key="index">
+        <button @click="currentIndex = index" :class="{'bg-white': currentIndex === index, 'bg-gray-400': currentIndex !== index}" class="w-4 h-4 rounded-full focus:outline-none"></button>
+      </template>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-16 px-6 bg-white text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-pink-600 mb-4">About Us</h2>
+      <p class="text-lg mb-4">
+        At Sweet Home Daycare, we provide a warm and nurturing environment where every child is celebrated. Our experienced staff ensures holistic development through creative activities, early learning, and emotional support.
+      </p>
+      <p class="italic text-gray-500 text-2xl">Your child's second home.</p>
+    </div>
+  </section>
+
+  <!-- Programs -->
+  <section id="programs" class="py-16 px-6 bg-pink-50">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-pink-600 mb-10">Our Programs</h2>
+      <div class="grid md:grid-cols-3 gap-10 text-left">
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-bold mb-2 text-pink-500">Infant Care (0-2 yrs)</h3>
+          <p>Gentle care with sensory play and emotional bonding in a safe setting.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-bold mb-2 text-pink-500">Toddler Program (2-3 yrs)</h3>
+          <p>Interactive learning, music, and motor skills activities for curious minds.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-bold mb-2 text-pink-500">Preschool (3-5 yrs)</h3>
+          <p>School readiness, creativity, storytelling, and fun learning through play.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="py-16 px-6 bg-white">
+    <div class="max-w-6xl mx-auto text-center rounded-2xl">
+      <h2 class="text-3xl font-bold text-pink-600 mb-10">Our Happy Moments</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <img src="assests/images/aadhidaycare1.jpg" class="rounded shadow rounded-2xl" alt="Daycare image 1"/>
+        <img src="assests/images/aadhidaycare2.jpg" class="rounded shadow rounded-2xl" alt="Daycare image 2"/>
+        <img src="assests/images/aadhidaycare5.jpg" class="rounded shadow rounded-2xl" alt="Daycare image 3"/>
+	
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-16 px-6 bg-gradient-to-br from-yellow-100 to-pink-100">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-pink-600 mb-6">What Parents Say</h2>
+      <p class="italic mb-4">“My daughter loves going to Sweet Home DayCare! The staff is so caring and creative.” – Emma R.</p>
+      <p class="italic">“Excellent communication and engaging curriculum. Highly recommended!” – James D.</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 px-6 bg-white text-center">
+    <div class="max-w-xl mx-auto">
+      <h2 class="text-3xl font-bold text-pink-600 mb-6">Get in Touch</h2>
+      <form class="space-y-4 text-left">
+        <input type="text" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:border-pink-400"/>
+        <input type="email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:border-pink-400"/>
+        <textarea rows="5" placeholder="Your Message" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:border-pink-400"></textarea>
+        <button class="bg-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-600 transition w-full">
+          Send Message
+        </button>
+      </form>
+      <p class="mt-6">📍 Burnaby, BC | 📧 hello@sweethomedaycare.ca | 📞 (604) 123-4567</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-pink-600 text-white py-6 text-center">
+    &copy; 2025 Sweet Home Daycare. All rights reserved.
+  </footer>
+
+</body>
+</html>
