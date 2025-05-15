@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sweet Home Daycare</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3659/3659894.png" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<!--<body class="bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] font-sans text-white">-->
+<body class="bg-gradient-to-br from-[#0f2027] via-[#2c7744] to-[#14532d] font-sans text-white">
+
+
+  <!-- Navbar -->
+  <header class="bg-[#0f2027] shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/3659/3659894.png" class="w-10 h-10" alt="Logo" />
+        <span class="text-xl font-bold text-blue-300">Sweet Home Daycare</span>
+      </div>
+      <nav class="space-x-6 hidden md:block text-sm font-medium text-blue-100">
+        <a href="#home" class="hover:text-cyan-400">Home</a>
+        <a href="#about" class="hover:text-cyan-400">About</a>
+        <a href="#programs" class="hover:text-cyan-400">Programs</a>
+        <a href="#gallery" class="hover:text-cyan-400">Gallery</a>
+        <a href="#contact" class="hover:text-cyan-400">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" x-data="{
+      images: [
+        { src: 'assests/images/aadhidaycare1.jpg', heading: 'Learning Through Play' },
+        { src: 'assests/images/aadhidaycare3.jpg', heading: 'Caring Like Family' },
+        { src: 'assests/images/aadhidaycare2.jpg', heading: 'Growing Together Every Day' },
+        { src: 'assests/images/aadhidaycare4.jpg', heading: 'Learning To Grow' }
+      ],
+      currentIndex: 0,
+      init() {
+        setInterval(() => {
+          this.currentIndex = (this.currentIndex + 1) % this.images.length;
+        }, 4000);
+      }
+    }" class="relative w-full h-[500px] overflow-hidden rounded-3xl"
+  >
+    <template x-for="(image, index) in images" :key="index">
+      <div
+        x-show="currentIndex === index"
+        class="absolute inset-0 transition-opacity duration-1000"
+        x-transition:enter="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="opacity-100"
+        x-transition:leave-end="opacity-0"
+      >
+        <img :src="image.src" alt="" class="w-full h-full object-cover opacity-80" />
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+          <h2 class="text-3xl md:text-5xl text-white font-bold text-center px-4" x-text="image.heading"></h2>
+        </div>
+      </div>
+    </template>
+
+    <!-- Arrows -->
+    <button @click="currentIndex = (currentIndex - 1 + images.length) % images.length" class="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full">
+      &#60;
+    </button>
+    <button @click="currentIndex = (currentIndex + 1) % images.length" class="absolute top-1/2 right-4 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full">
+      &#62;
+    </button>
+
+    <!-- Dots -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <template x-for="(image, index) in images" :key="index">
+        <button @click="currentIndex = index" :class="{'bg-white': currentIndex === index, 'bg-gray-400': currentIndex !== index}" class="w-4 h-4 rounded-full focus:outline-none"></button>
+      </template>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-16 px-6 bg-[#142533] text-left">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-2">
+        <div><h2 class="text-5xl font-bold text-cyan-400 mb-4">Who We Are</h2></div>
+        <div class="text-center py-1 ">
+            <p class="text-2xl  mb-4 text-blue-100">
+                At Sweet Home Daycare, we provide a warm and nurturing environment where every child is celebrated. Our experienced staff ensures holistic development through creative activities, early learning, and emotional support.
+            </p>
+
+            <p class="italic text-blue-300 text-2xl">Your child's second home.</p>
+        </div>
+    </div>
+  </section>
+
+  <!-- Programs -->
+  <section id="programs" class="py-16 px-6 bg-[#1b2b3a] text-white">
+
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-2">
+          <div><h2 class="text-5xl font-bold text-cyan-400 mb-4">Our Programs</h2></div>
+          <div class="text-center py-1 ">
+              <p class="text-3xl  mb-4 text-blue-100">
+                  We Offer for All Age Groups.
+              </p>
+          </div>
+      </div>
+      <div class="max-w-6xl mx-auto text-center">
+          <!--<h2 class="text-3xl font-bold text-cyan-400 mb-10">Our Programs</h2>-->
+          <div class="grid md:grid-cols-3 gap-10 text-left">
+              <div class="bg-[#243447] p-6 rounded-lg shadow">
+                  <h3 class="text-xl font-bold mb-2 text-blue-300">Infant Care (0-2 yrs)</h3>
+                  <p>Gentle care with sensory play and emotional bonding in a safe setting.</p>
+              </div>
+              <div class="bg-[#243447] p-6 rounded-lg shadow">
+                  <h3 class="text-xl font-bold mb-2 text-blue-300">Toddler Program (2-3 yrs)</h3>
+                  <p>Interactive learning, music, and motor skills activities for curious minds.</p>
+              </div>
+              <div class="bg-[#243447] p-6 rounded-lg shadow">
+                  <h3 class="text-xl font-bold mb-2 text-blue-300">Preschool (3-5 yrs)</h3>
+                  <p>School readiness, creativity, storytelling, and fun learning through play.</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="py-16 px-6 bg-[#142533] text-center">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-2">
+          <div><h2 class="text-5xl font-bold text-cyan-400 mb-4">Our Happy Moments</h2></div>
+          <div class="text-center py-1 ">
+              <p class="text-3xl  mb-4 text-blue-100">
+                  Smiles, giggles, and tiny footsteps – every moment is magical.
+              </p>
+          </div>
+      </div>
+      <!--<h2 class="text-5xl font-bold text-cyan-400 mb-10"></h2>-->
+      <div class="max-w-6xl mx-auto rounded-2xl">
+          <div class="grid md:grid-cols-3 gap-4">
+              <img src="assests/images/aadhidaycare1.jpg" class="rounded shadow-xl rounded-3xl" alt="Gallery 1" />
+              <img src="assests/images/aadhidaycare2.jpg" class="rounded shadow-xl rounded-3xl" alt="Gallery 2" />
+              <img src="assests/images/aadhidaycare5.jpg" class="rounded shadow-xl rounded-3xl" alt="Gallery 3" />
+          </div>
+      </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-16 px-6 bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] text-center">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-2">
+          <div><h2 class="text-5xl font-bold text-cyan-400 mb-4">What Parents Say</h2></div>
+          <div class="text-center py-1 ">
+              <p class="text-3xl  mb-4 text-blue-100">
+                  A Place Where Hearts Feel Safe
+              </p>
+          </div>
+      </div>    
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-2">
+          <div class="rounded shadow-2xl rounded-4xl">
+              <p class="italic mb-4 text-blue-100">“My daughter loves going to Sweet Home DayCare! The staff is so caring and creative.” – Emma R.</p>
+          </div>
+          <div class="rounded shadow-xl rounded-4xl">
+              <p class="italic text-blue-100">“Excellent communication and engaging curriculum. Highly recommended!” – James D.</p>
+          </div>
+</section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 px-6 bg-[#1b2b3a] text-center">
+    <div class="max-w-xl mx-auto">
+      <h2 class="text-3xl font-bold text-cyan-400 mb-6">Get in Touch</h2>
+      <form class="space-y-4 text-left">
+        <input type="text" placeholder="Your Name" class="w-full p-3 border border-gray-600 bg-[#243447] text-white rounded focus:outline-none focus:ring focus:border-cyan-400"/>
+        <input type="email" placeholder="Your Email" class="w-full p-3 border border-gray-600 bg-[#243447] text-white rounded focus:outline-none focus:ring focus:border-cyan-400"/>
+        <textarea rows="5" placeholder="Your Message" class="w-full p-3 border border-gray-600 bg-[#243447] text-white rounded focus:outline-none focus:ring focus:border-cyan-400"></textarea>
+        <button class="bg-cyan-600 text-white px-6 py-3 rounded-full shadow-xl font-semibold hover:bg-cyan-700 transition w-full">
+          Send Message
+        </button>
+      </form>
+      <p class="mt-6 text-blue-200">📍 Burnaby, BC | 📧 hello@sweethomedaycare.ca | 📞 (604) 123-4567</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0f2027] text-white py-6 text-center">
+    &copy; 2025 Sweet Home Daycare. All rights reserved.
+  </footer>
+
+</body>
+</html>
